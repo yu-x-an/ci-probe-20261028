@@ -1,0 +1,22 @@
+name: probe
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    name: ${{ matrix.os }} / node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: ['ubuntu-latest', 'macos-latest', 'windows-latest']
+        node: ['22', '24']
+    steps:
+      - name: say ok
+        run: echo "ok on ${{ matrix.os }} node ${{ matrix.node }}"
